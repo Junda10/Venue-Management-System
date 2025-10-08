@@ -1,0 +1,395 @@
+
+  *{
+      box-sizing: border-box;
+  }
+
+body{
+
+    background-color:#1A1A1A;
+    background-attachment: fixed;
+    color: black;
+    background-size: cover; 
+    font-family: 'Montserrat', Arial, sans-serif;
+    margin-bottom: 60px;
+    padding: 0;
+    font-size: 20px;
+    text-align: justify;
+}
+
+.container{
+    padding: 50px 20px;
+    position: relative;
+}
+
+.mynav ul{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mynav li{
+    position: relative;
+}
+
+.mynav li:not(:last-child){
+    margin-right: 20px;
+}
+
+.mynav a{
+    display: block;
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+    padding: 7px 15px;
+    transition: all .35s ease-in-out;
+}
+
+.target{
+    position: absolute;
+    border-bottom: 4px solid transparent;
+    z-index: 1;
+    transform: translateX(-60px);
+    transition: all .35s ease-in-out;
+    pointer-events: none;
+}
+
+.dropdown{
+    position: relative;
+}
+
+.dropdown-content{
+    display: none;
+    position: absolute;
+    color: black;
+    background-color: #C9C9C9;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    top: 100%;
+    left: 0;
+}
+
+.dropdown-content li{
+    display: block;
+}
+
+.dropdown-content a{
+    padding: 12px 16px;
+    color: black;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover{
+    background-color: #C9C9C9;
+}
+
+.dropdown .dropdown-content{
+    display: none;
+}
+
+.dropdown:hover .dropdown-content{
+    display: block;
+}
+
+.mynav .dropdown > a{
+    color: black;
+}
+
+.reservation-container{
+    text-align: center;
+    padding: 10px;
+    background-color: #E6F1F6;
+    border-radius: 8px;
+    max-width: 1000px;
+    margin: 5px auto;
+}
+
+.reservation-container h1{
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.reservation-container img{
+    width: 30%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.reservation-container form{
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    text-align: left;
+    width: 100%;
+    max-width: 900px;
+}
+
+.reservation-container label{
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.reservation-container input[type="date"],
+.reservation-container textarea{
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.reservation-container .time-slots{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.time-slot{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f8ff;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.time-slot input{
+    display: none;
+}
+
+.time-slot span{
+    font-size: 16px;
+    color: #1e90ff;
+}
+
+.time-slot:hover{
+    background-color: #e0f7fa;
+}
+
+.time-slot input:checked + span{
+    background-color: #20c997;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.button-container{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+button[type="submit"],
+button[type="button"]{
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover,
+button[type="button"]:hover{
+    background-color: #2980b9;
+}
+
+button[type="button"]{
+    background-color: #6c757d;
+}
+
+button[type="button"]:hover{
+    background-color: #5a6268;
+}
+
+button[type="submit"]{
+    background-color: #007bff;
+}
+
+button[type="submit"]:hover{
+    background-color: #0056b3;
+}
+
+.alert{
+    color: #f44336;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.profile-icon{
+    position: absolute;
+    left: 70px;
+    top: 30px;
+    width: 50px;
+    height: 50px;
+    background-image: url('images/profile2.png');
+    background-size: cover;
+    cursor: pointer;
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
+
+
+
+.container2 {
+  position: relative;
+  margin-top:100px;
+  margin:auto;
+  width: 1300px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+  padding: 40px;
+  background: #1A1A1A;
+  border:2px solid white;
+  box-shadow: 14px 14px 20px #3765f3, -14px -14px 20px blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', Arial, sans-serif;
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+}
+
+
+.brand-logo img {
+  position: relative;
+  width: 50%; 
+  border-radius: 20%;
+  box-sizing: border-box;
+  box-shadow: 7px 7px 10px #cbced1, -7px -7px 10px white;
+  display: block; 
+  margin: auto; 
+}
+
+.brand-title {
+  margin-top: 10px;
+  font-weight: 900;
+  font-size: 1.8rem;
+  color: #1DA1F2;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.reservation-container {
+  margin-top: 30px;
+  background: #EFFDFF;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 6px 6px 10px blue, -6px -6px 10px #3765f3;
+  width: 1000px;
+  max-width: 100%; 
+}
+
+.reservation-container h1 {
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  background: #EFFDFF;
+
+}
+form {
+  display: flex;
+  flex-direction: column;
+  background: #EFFDFF;
+
+}
+
+label {
+  margin-top: 10px;
+  font-weight: 900;
+  color: #1DA1F2;
+}
+
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 2px solid #cbced1;
+  border-radius: 10px;
+  background: #ecf0f3;
+  box-shadow: inset 4px 4px 4px #cbced1, inset -4px -4px 4px white;
+  resize: vertical;
+}
+
+.time-slots {
+  margin-top: 5px;
+  padding: 10px;
+  border: 2px solid #cbced1;
+  border-radius: 10px;
+  background: #ecf0f3;
+  box-shadow: inset 4px 4px 4px #cbced1, inset -4px -4px 4px white;
+}
+
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  flex: 1;
+  padding: 10px;
+  color: white;
+  background: #1DA1F2;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 900;
+  box-shadow: 4px 4px 4px #cbced1, -4px -4px 4px white;
+  transition: 0.3s;
+}
+
+button:hover {
+  box-shadow: none;
+  transform: translateY(2px);
+}
+
+#reservationForm{
+  background: #EFFDFF;
+
+}

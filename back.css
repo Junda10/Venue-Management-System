@@ -1,0 +1,14 @@
+.Back_Rmenu{
+    background-color: #1DA1F2;
+    color: white;
+    padding: 15px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 15px;
+   }
+   
