@@ -34,11 +34,21 @@ echo "<h2>2. Attempting Connection</h2>";
 echo "Attempting to connect to <code>$servername</code> on port <code>$port</code> as <code>$username</code>...<br>";
 
 try {
-    mysqli_report(MYSQLI_REPORT_OFF); // Traditional error handling for this script
-    $conn = new mysqli($servername, $username, $password, $dbname, $port);
+    mysqli_report(MYSQLI_REPORT_OFF);
+    $conn = mysqli_init();
+    if (!$conn) {
+        throw new Exception("mysqli_init failed");
+    }
 
-    if ($conn->connect_error) {
-        throw new Exception($conn->connect_error);
+    $flags = 0;
+    if (strpos($servername, 'tidbcloud.com') !== false) {
+        $ca_path = "/etc/ssl/certs/ca-certificates.crt";
+        mysqli_ssl_set($conn, NULL, NULL, $ca_path, NULL, NULL);
+        $flags = MYSQLI_CLIENT_SSL;
+    }
+
+    if (!@mysqli_real_connect($conn, $servername, $username, $password, $dbname, $port, NULL, $flags)) {
+        throw new Exception(mysqli_connect_error());
     }
 
     echo "<p style='color:green; font-weight:bold;'>✅ Connection Successful!</p>";

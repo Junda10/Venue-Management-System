@@ -1,33 +1,38 @@
 <?php
-$servername = getenv('DB_HOST') ?: "localhost";
-$username = getenv('DB_USER') ?: "root";
-$password = getenv('DB_PASSWORD') ?: "";
-$dbname = getenv('DB_NAME') ?: "venue_management";
-$port = getenv('DB_PORT') ?: 3306;
+// Pulling from Render Environment Variables
+$servername = getenv('DB_HOST') ?: "gateway01.ap-southeast-1.prod.aws.tidbcloud.com";
+$username   = getenv('DB_USER') ?: "2Wx2wbVAkH3XTSW.root";
+$password   = getenv('DB_PASSWORD') ?: "twPGk6WT3jGIaIvl";
+$dbname     = getenv('DB_NAME') ?: "test"; 
+$port       = getenv('DB_PORT') ?: 4000;
 
-// Create connection
 try {
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $conn = mysqli_init();
-    if (!$conn) {
-        throw new Exception("mysqli_init failed");
+
+    // Force SSL initialization
+    // Passing NULL for all parameters tells PHP: "Use the server's default CA certs"
+    mysqli_ssl_set($conn, NULL, NULL, NULL, NULL, NULL);
+
+    // The key is the 'MYSQLI_CLIENT_SSL' flag at the end
+    $success = mysqli_real_connect(
+        $conn, 
+        $servername, 
+        $username, 
+        $password, 
+        $dbname, 
+        $port, 
+        NULL, 
+        MYSQLI_CLIENT_SSL
+    );
+
+    if (!$success) {
+        throw new Exception("Connection failed: " . mysqli_connect_error());
     }
 
-    // TiDB Cloud (TiDB Serverless) requires SSL
-    if (strpos($servername, 'tidbcloud.com') !== false) {
-        // Standard CA bundle path on Render (Debian based images)
-        $ca_path = "/etc/ssl/certs/ca-certificates.crt";
-        mysqli_ssl_set($conn, NULL, NULL, $ca_path, NULL, NULL);
-        $flags = MYSQLI_CLIENT_SSL;
-    } else {
-        $flags = 0;
-    }
-
-    if (!mysqli_real_connect($conn, $servername, $username, $password, $dbname, $port, NULL, $flags)) {
-        throw new Exception(mysqli_connect_error());
-    }
+    // Success! 
 } catch (Exception $e) {
-    error_log("Connection failed: " . $e->getMessage());
-    die("Service temporarily unavailable. Please try again later.");
+    error_log($e->getMessage());
+    die("Error: " . $e->getMessage());
 }
 ?>
