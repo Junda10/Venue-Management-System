@@ -64,6 +64,19 @@ try {
                 echo "<li>" . $row[0] . "</li>";
             }
             echo "</ul>";
+
+            // 4. Verify User Data
+            echo "<h2>4. User Data Check (IDs only)</h2>";
+            $user_check = $conn->query("SELECT user_id, email FROM users LIMIT 5");
+            if ($user_check && $user_check->num_rows > 0) {
+                echo "First 5 users found:<ul>";
+                while ($u = $user_check->fetch_assoc()) {
+                    echo "<li>ID: <code>" . $u['user_id'] . "</code> (Email: " . $u['email'] . ")</li>";
+                }
+                echo "</ul>";
+            } else {
+                echo "<p style='color:red'>⚠️ No users found in 'users' table. Data might be missing!</p>";
+            }
         } else {
             echo "<p style='color:red'>⚠️ No tables found in the database. Did you run the import?</p>";
         }

@@ -1,69 +1,82 @@
-# Venue Management System
+# 🎓 University Venue Management System
 
-A web-based application for managing venue reservations, including features for both users (students/staff) and administrators.
+A comprehensive web application designed to streamline the reservation and management of university venues. The system provides a seamless interface for students to book facilities and for administrators to manage requests efficiently.
 
-## Features
--   **User Module**: Sign up, Login, View Venues, Make Reservations, Check Status.
--   **Admin Module**: Manage Venues, Approve/Reject Reservations, View Reports.
-
----
-
-## 🚀 Quick Start (Local Development)
-
-### Prerequisites
--   **XAMPP** (or any AMP stack) with PHP 8.2+ and MySQL.
-
-### Installation Steps
-1.  **Clone/Download** this repository into your `htdocs` folder (e.g., `C:\xampp\htdocs\Venue-Management-System`).
-2.  **Start Services**: Open XAMPP Control Panel and start **Apache** and **MySQL**.
-3.  **Setup Database**:
-    -   Go to `http://localhost/phpmyadmin`.
-    -   Create a database named `venue_management`.
-    -   Import the `venue_management.sql` file provided in this project.
-4.  **Configure Credentials**:
-    -   By default, it works with `root` (no password) on `localhost`.
-    -   If you have a custom setup, copy `.env.example` to `.env` and update your credentials:
-        ```ini
-        DB_HOST=localhost
-        DB_USER=root
-        DB_PASSWORD=yourpassword
-        DB_NAME=venue_management
-        ```
-5.  **Run**: Visit `http://localhost/Venue-Management-System/Venue-Management-System/main.php`.
+## 🌐 Live Website
+The application is live and can be accessed at:
+**[https://venue-management-system.onrender.com/](https://venue-management-system.onrender.com/)**
 
 ---
 
-## ☁️ Deployment (Cloud)
-
-This project is configured to run on **Render** (Web) with an external database (TiDB/Aiven).
-
-### 1. Database Setup
-Since Render does not provide a free MySQL database, you must host it externally (e.g., **TiDB Cloud** or **Aiven**).
--   Create a free MySQL cluster.
--   Connect to it using a desktop client (HeidiSQL/DBeaver).
--   Run the `venue_management.sql` script to create the tables.
-
-### 2. Connect to Render
-1.  Push your code to **GitHub**.
-2.  Create a new **Web Service** on Render.
-3.  Choose **Docker** as the runtime.
-4.  Add the following **Environment Variables** (or upload your `.env` file as a "Secret File"):
-    -   `DB_HOST`: (your cloud database host)
-    -   `DB_PORT`: `4000` (or 3306)
-    -   `DB_USER`: (your cloud user)
-    -   `DB_PASSWORD`: (your cloud password)
-    -   `DB_NAME`: (your cloud db name)
-
-*For a detailed walkthrough, read `RENDER_GUIDE.md` included in this repo.*
+## 🛠 Built With
+- **Frontend**: HTML5, CSS3 (Vanilla), JavaScript
+- **Backend**: PHP 8.2+
+- **Database**: MySQL / TiDB Cloud (Serverless)
+- **Deployment**: Docker, Render
 
 ---
 
-## Default Login Credentials
+## ✨ Core Features
 
-**Admins:**
--   **Email**: `chiachintat10@gmail.com`
--   **Password**: `12341234`
+### 👤 Student/User Module
+- **Account Management**: Secure registration and login.
+- **Venue Exploration**: View available venues with descriptions and capacity.
+- **Smart Booking**: Check real-time availability and request time slots.
+- **Reservation Tracking**: View upcoming and past reservations.
+- **Reporting**: Report issues or provide feedback on specific venues.
 
-**Users (Students):**
--   **Email**: `1211100564@student.mmu.edu.my`
--   **Password**: `iampretty`
+### 🛡 Admin Module
+- **Dashboard**: Overview of system statistics and pending requests.
+- **Venue Management**: Add, update, or delete venues and their details.
+- **Application Review**: Process reservation requests (Approve/Reject).
+- **User Management**: View and manage student and administrator profiles.
+- **System Diagnostics**: Built-in tools for database connection monitoring.
+
+---
+
+## 🚀 Getting Started
+
+### 💻 Local Deployment (XAMPP)
+1. **Clone the Repository**:
+   Place the project folder in your `htdocs` directory.
+2. **Start Services**:
+   Open XAMPP and start **Apache** and **MySQL**.
+3. **Database Setup**:
+   - Access `phpMyAdmin`.
+   - Create a database: `venue_management`.
+   - Import `venue_management.sql`.
+4. **Configuration**:
+   Update `db_connect.php` with your local credentials if different from defaults (`root` / no password).
+5. **Launch**:
+   Navigate to `http://localhost/Venue-Management-System/main.php`.
+
+### ☁️ Cloud Deployment (Render + TiDB)
+This project is pre-configured for Docker-based deployment on Render.
+
+1. **Database**: 
+   - Set up a free cluster on **TiDB Cloud**.
+   - Import `venue_management.sql`.
+2. **Environment Variables**:
+   Set the following in the Render Dashboard:
+   - `DB_HOST`: Your TiDB Host
+   - `DB_PORT`: `4000`
+   - `DB_USER`: Your TiDB User
+   - `DB_PASSWORD`: Your TiDB Password
+   - `DB_NAME`: Your database name
+3. **SSL Requirement**:
+   The system is configured to automatically use **SSL (TLS)** when connecting to TiDB Cloud to ensure "secure transport" compliance.
+
+---
+
+## 🔐 Test Credentials
+
+| Role | UserID | Password |
+| :--- | :--- | :--- |
+| **Admin** | `A001` | `12341234` |
+| **Student** | `1211101262` | `12345678` |
+
+---
+
+## 🔧 Technical Notes
+- **Connection Security**: The `db_connect.php` uses `mysqli_ssl_set` for mandatory SSL connections required by modern cloud databases.
+- **Header Management**: PHP logic is placed at the top of files to ensure correct session initialization and redirects without "headers already sent" errors.
