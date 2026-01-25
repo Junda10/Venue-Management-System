@@ -7,19 +7,41 @@ echo "<h1>System Diagnostic Script</h1>";
 
 // 1. Check Environment Variables
 echo "<h2>1. Environment Variables</h2>";
-echo "Host: " . (getenv('DB_HOST') ?: 'Not Set (using fallback)') . "<br>";
-echo "User: " . (getenv('DB_USER') ?: 'Not Set (using fallback)') . "<br>";
-echo "DB Name: " . (getenv('DB_NAME') ?: 'Not Set (using fallback)') . "<br>";
-echo "Port: " . (getenv('DB_PORT') ?: 'Not Set (using fallback)') . "<br>";
+$vars = [
+    'DB_HOST' => getenv('DB_HOST'),
+    'DB_USER' => getenv('DB_USER'),
+    'DB_NAME' => getenv('DB_NAME'),
+    'DB_PORT' => getenv('DB_PORT'),
+    'DB_PASSWORD' => getenv('DB_PASSWORD') ? '****** (Set)' : 'Not Set'
+];
 
-// 2. Attempt Connection
-echo "<h2>2. Database Connection Test</h2>";
-require 'db_connect.php'; // Using your existing wrapper
+foreach ($vars as $name => $value) {
+    if ($name !== 'DB_PASSWORD') {
+        echo "<strong>$name:</strong> " . ($value ?: '<span style="color:orange">Not Set (using fallback)</span>') . "<br>";
+    } else {
+        echo "<strong>$name:</strong> $value<br>";
+    }
+}
 
-if ($conn->connect_error) {
-    echo "<p style='color:red'>❌ Connection Failed: " . $conn->connect_error . "</p>";
-} else {
-    echo "<p style='color:green'>✅ Connection Successful!</p>";
+// 2. Connection Details
+$servername = getenv('DB_HOST') ?: "localhost";
+$username = getenv('DB_USER') ?: "root";
+$password = getenv('DB_PASSWORD') ?: "";
+$dbname = getenv('DB_NAME') ?: "venue_management";
+$port = getenv('DB_PORT') ?: 3306;
+
+echo "<h2>2. Attempting Connection</h2>";
+echo "Attempting to connect to <code>$servername</code> on port <code>$port</code> as <code>$username</code>...<br>";
+
+try {
+    mysqli_report(MYSQLI_REPORT_OFF); // Traditional error handling for this script
+    $conn = new mysqli($servername, $username, $password, $dbname, $port);
+
+    if ($conn->connect_error) {
+        throw new Exception($conn->connect_error);
+    }
+
+    echo "<p style='color:green; font-weight:bold;'>✅ Connection Successful!</p>";
     echo "Connected to: " . $conn->host_info . "<br>";
 
     // 3. Check Tables
@@ -27,17 +49,27 @@ if ($conn->connect_error) {
     $result = $conn->query("SHOW TABLES");
     if ($result) {
         if ($result->num_rows > 0) {
-            echo "<ul>";
+            echo "Tables found in <code>$dbname</code>:<ul>";
             while ($row = $result->fetch_array()) {
                 echo "<li>" . $row[0] . "</li>";
             }
             echo "</ul>";
-            echo "<p style='color:green'>✅ Tables found. If this list is empty, you need to import your SQL file!</p>";
         } else {
             echo "<p style='color:red'>⚠️ No tables found in the database. Did you run the import?</p>";
         }
     } else {
         echo "<p style='color:red'>❌ Error listing tables: " . $conn->error . "</p>";
     }
+
+} catch (Exception $e) {
+    echo "<p style='color:red; font-weight:bold;'>❌ Connection Failed!</p>";
+    echo "<strong>Error Message:</strong> " . $e->getMessage() . "<br>";
+
+    echo "<h3>Common Fixes:</h3>";
+    echo "<ul>";
+    echo "<li><strong>On Render:</strong> Go to Dashboard > Environment and ensure all DB_* variables are set correctly.</li>";
+    echo "<li><strong>TiDB Cloud:</strong> Ensure your IP is whitelisted and if SSL is required.</li>";
+    echo "<li><strong>Local:</strong> Ensure your MySQL server is running and the credentials match.</li>";
+    echo "</ul>";
 }
 ?>
