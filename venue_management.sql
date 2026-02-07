@@ -35,7 +35,7 @@ CREATE TABLE `admins` (
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `phone_num` varchar(20) NOT NULL,
+  `phone_num` int(20) NOT NULL,
   `password` varchar(50) NOT NULL,
   `a_image` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -202,7 +202,7 @@ CREATE TABLE `users` (
   `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `role_id` int(11) NOT NULL,
-  `phone_num` varchar(20) DEFAULT NULL,
+  `phone_num` int(20) DEFAULT NULL,
   `faculty_id` int(11) NOT NULL,
   `term_id` int(11) NOT NULL,
   `u_image` varchar(100) NOT NULL
