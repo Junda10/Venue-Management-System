@@ -1,7 +1,7 @@
 <?php
-include 'db_connect.php'; 
+include 'db_connect.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
     $user_id = $_POST['user_id'];
@@ -14,13 +14,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $term_id = $_POST['term_id'];
 
     // Check if user_id is empty
-    if (empty($user_id)){
+    if (empty($user_id)) {
         echo "<script>alert('User ID cannot be empty.'); window.location='user_register.php';</script>";
         exit();
     }
 
     // Check if passwords match
-    if ($password !== $confirm_password){
+    if ($password !== $confirm_password) {
         echo "<script>alert('Passwords do not match.'); window.location='user_register.php';</script>";
         exit();
     }
@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check if email already exists
     $sql = "SELECT * FROM users WHERE email='$email'";
     $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0){
+    if (mysqli_num_rows($result) > 0) {
         echo "<script>alert('Email already exists.'); window.location='user_signin.php';</script>";
         exit();
     }
@@ -46,23 +46,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check if user_id already exists
     $sql = "SELECT * FROM users WHERE user_id='$user_id'";
     $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) > 0){
+    if (mysqli_num_rows($result) > 0) {
         echo "<script>alert('User ID already exists.'); window.location='user_signin.php';</script>";
         exit();
     }
 
+    // Default image for new users
+    $u_image = 'images/user.png';
+
     // Insert new user into the database
-    $insert_sql = "INSERT INTO users (first_name, last_name, user_id, email, password, role_id, phone_num, faculty_id, term_id)
-                   VALUES ('$first_name', '$last_name', '$user_id', '$email', '$password', '$role_id', '$phone_num', '$faculty_id', '$term_id')";
-    
+    $insert_sql = "INSERT INTO users (first_name, last_name, user_id, email, password, role_id, phone_num, faculty_id, term_id, u_image)
+                   VALUES ('$first_name', '$last_name', '$user_id', '$email', '$password', '$role_id', '$phone_num', '$faculty_id', '$term_id', '$u_image')";
+
     if (mysqli_query($conn, $insert_sql)) {
         // Send confirmation email
         $to = $email;
-// Email subject
-$subject = "Welcome to our university venue management system!";
+        // Email subject
+        $subject = "Welcome to our university venue management system!";
 
-// Email message
-$message = "
+        // Email message
+        $message = "
 <html>
 <head>
     <title>Welcome to Our University Venue Management System</title>
@@ -135,7 +138,7 @@ $message = "
         $headers .= 'From: University Venue Management System' . "\r\n";
         error_reporting(E_ALL);
         ini_set('display_errors', 1);
-        
+
         if (mail($to, $subject, $message, $headers)) {
             echo "<script>alert('Registration successful. Please check your email.'); window.location='user_signin.php';</script>";
         } else {
