@@ -27,7 +27,7 @@ foreach ($vars as $name => $value) {
 $servername = getenv('DB_HOST') ?: "localhost";
 $username = getenv('DB_USER') ?: "root";
 $password = getenv('DB_PASSWORD') ?: "";
-$dbname = getenv('DB_NAME') ?: "venue_management";
+$dbname = getenv('DB_NAME') ?: "test";
 $port = getenv('DB_PORT') ?: 3306;
 
 echo "<h2>2. Attempting Connection</h2>";
