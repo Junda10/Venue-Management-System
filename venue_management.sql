@@ -7,8 +7,8 @@
 -- 服务器版本： 10.4.32-MariaDB
 -- PHP 版本： 8.2.12
 
-CREATE DATABASE IF NOT EXISTS venue_management;
-USE venue_management;
+-- CREATE DATABASE IF NOT EXISTS test;
+-- USE test;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;

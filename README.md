@@ -43,7 +43,7 @@ The application is live and can be accessed at:
    Open XAMPP and start **Apache** and **MySQL**.
 3. **Database Setup**:
    - Access `phpMyAdmin`.
-   - Create a database: `venue_management`.
+   - Create a database: `test`.
    - Import `venue_management.sql`.
 4. **Configuration**:
    Update `db_connect.php` with your local credentials if different from defaults (`root` / no password).
