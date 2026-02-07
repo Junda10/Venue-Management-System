@@ -36,6 +36,9 @@ try {
         throw new Exception("Connection failed: " . mysqli_connect_error());
     }
 
+    // Explicitly select the test database to ensure consistency
+    $conn->query("USE test");
+
     // Success! 
 } catch (Exception $e) {
     error_log($e->getMessage());
