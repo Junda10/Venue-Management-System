@@ -202,7 +202,7 @@ CREATE TABLE `users` (
   `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `role_id` int(11) NOT NULL,
-  `phone_num` int(20) DEFAULT NULL,
+  `phone_num` varchar(20) DEFAULT NULL,
   `faculty_id` int(11) NOT NULL,
   `term_id` int(11) NOT NULL,
   `u_image` varchar(100) NOT NULL

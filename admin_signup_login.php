@@ -144,6 +144,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" name="admin_id" required>
             <label for="password">Password</label>
             <input type="password" name="password" required>
+            <p style="font-size: 12px; margin-top: 10px; color: #aaa;">Demo Admin ID: <code>A001</code> | Password:
+                <code>12341234</code></p>
             <button type="submit" name="login">Login</button>
             <p class="Back_Rmenu" onclick="window.location.href='main.php'">Back</p>
 

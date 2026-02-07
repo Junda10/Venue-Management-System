@@ -158,6 +158,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" id="user_id" name="user_id" required>
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required>
+            <p style="font-size: 12px; margin-top: 10px; color: #aaa;">Demo Student ID: <code>1211101262</code> |
+                Password: <code>12345678</code></p>
             <button type="submit">Login</button>
     </form>
     </br></br>
